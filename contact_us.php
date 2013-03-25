@@ -12,6 +12,7 @@ $contact_us = array(
         'id_field' => 'id',
         'fields' => array('id', 'email', 'subject', 'message')
     ),
+    'form' => array(),
 );
 
 $action = get_request_wl_value('action', $contact_us['default_action'], $contact_us['actions']); 
@@ -30,7 +31,7 @@ if($action == 'view') {
     );
     require 'layout/default.php';
 } elseif ($action == 'create') {
-    $contact_us['form'] = array('error_msg' => '');
+    $contact_us['form']['error_msg'] = '';
     if($step == 'show') {
         foreach(array_slice($contact_us['table']['fields'], 1) as $field_name) {
             $contact_us['form'][$field_name] = '';
@@ -57,7 +58,7 @@ if($action == 'view') {
     );
     require 'layout/default.php';
 } elseif ($action == 'update') {
-    $contact_us['form'] = array('error_msg' => '');
+    $contact_us['form']['error_msg'] = '';
     $id_field = $contact_us['table']['id_field'];
     if($step == 'show') {
         contact_us_form_get_record($id_field);
@@ -83,7 +84,6 @@ if($action == 'view') {
     );
     require 'layout/default.php';
 } elseif ($action == 'delete') {
-    $contact_us['form'] = array();
     $id_field = $contact_us['table']['id_field'];
     if($step == 'show') {
         contact_us_form_get_record(get_request_value($id_field));
